@@ -1,0 +1,37 @@
+version: '3'
+services:
+  web:
+    env_file:
+      - .env
+
+    build: .
+
+    restart: unless-stopped
+    
+    volumes:
+      - .:/workspace
+      - ~/.ssh:/root/.ssh
+
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    networks:
+      - backend
+  
+  mongo:
+    image: mongo
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=venturusadmin
+        - MONGO_INITDB_ROOT_PASSWORD=secret
+    volumes: 
+        - ./mongo:/data/db
+    ports:
+      - "27017:27017"
+    networks: 
+      - backend
+  
+networks:
+  backend:

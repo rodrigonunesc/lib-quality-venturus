@@ -1,0 +1,38 @@
+{
+  "name": "lib-quality-venturus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodrigonunesc/lib-quality-venturus.git"
+  },
+  "author": "Rodrigo Nunes Catarino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rodrigonunesc/lib-quality-venturus/issues"
+  },
+  "homepage": "https://github.com/rodrigonunesc/lib-quality-venturus#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.11",
+    "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.0",
+    "husky": "^4.3.0",
+    "jest": "^26.6.1",
+    "moxios": "^0.4.0",
+    "supertest": "^6.0.0"
+  }
+}
