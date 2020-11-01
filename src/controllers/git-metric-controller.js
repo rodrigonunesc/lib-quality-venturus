@@ -13,7 +13,9 @@ module.exports.getProjectMetrics = async (req, res, next) => {
 
     const { projectName, userId } = req.query;
 
-    const cachedResponse = await redisHelper.getData(projectName);
+    const redisKey = `getProjectMetrics${projectName}`;
+
+    const cachedResponse = await redisHelper.getData(redisKey);
 
     let response;
 
@@ -47,7 +49,7 @@ module.exports.getProjectMetrics = async (req, res, next) => {
         }),
       ]);
 
-      const issues = await githubApi.getOpenedProjectIssues(projectData.full_name);
+      const issues = await githubApi.getOpenedProjectIssues(projectData.full_name, []);
 
       const averageOpenedIssueTimeInDays = extractAverageAgeFromIssues(issues);
 
@@ -56,12 +58,12 @@ module.exports.getProjectMetrics = async (req, res, next) => {
 
       response = {
         projectIdentifier: projectData.full_name,
-        issuesAmount: projectData.open_issues,
+        issuesAmount: issues.length,
         averageOpenedIssueTimeInDays,
         deviationOpenedIssueTimeInDays: deviationInDays,
       };
 
-      redisHelper.persistData(projectName,
+      redisHelper.persistData(redisKey,
         JSON.stringify({ cachedPayload: response, projectData }));
     }
 
@@ -75,16 +77,36 @@ module.exports.getProjectMetricsAlongTime = async (req, res, next) => {
   try {
     const { projectsFullNames } = req.query;
 
-    const arrayOfProjectFullNames = genericUtils.splitStringBySeparator(projectsFullNames, ',');
+    const redisKey = `getProjectMetricsAlongTime${projectsFullNames}`;
 
-    const promises = arrayOfProjectFullNames
-      .map((projectFullName) => githubApi.getProjectDataByFullName(projectFullName));
+    let response;
 
-    const projectsData = await Promise.all(promises);
+    const cachedResponse = await redisHelper.getData(redisKey);
 
-    const t = metricUtils.t(projectsData);
+    if (cachedResponse) {
+      response = JSON.parse(cachedResponse);
+    } else {
+      const arrayOfProjectFullNames = genericUtils.splitStringBySeparator(projectsFullNames, ',');
 
-    res.json(t);
+      const projectsIssues = {};
+
+      const promises = arrayOfProjectFullNames
+        .map(async (projectFullName) => {
+          projectsIssues[projectFullName] = await githubApi.getOpenedProjectIssues(
+            projectFullName, [{ name: 'direction', value: 'asc' }],
+          );
+        });
+
+      await Promise.all(promises);
+
+      const trackedProjectIssues = metricUtils.getProjectIssuesTrackedPerDay(projectsIssues);
+
+      response = trackedProjectIssues;
+
+      redisHelper.persistData(redisKey, JSON.stringify(response));
+    }
+
+    res.json(response);
   } catch (e) {
     next(e);
   }

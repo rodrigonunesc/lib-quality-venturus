@@ -45,10 +45,11 @@ module.exports.getProjectDataByName = async (projectName) => {
   return projectData;
 };
 
-module.exports.getOpenedProjectIssues = async (fullProjectName) => {
+module.exports.getOpenedProjectIssues = async (fullProjectName, additionalQueryParams) => {
   const queryParams = [
     { name: 'per_page', value: PER_PAGE_AMOUNT },
     { name: 'state', value: 'open' },
+    ...additionalQueryParams,
   ];
   const { data: issuesFirstPage, headers } = await getProjectIssuesFromApi(fullProjectName, [...queryParams, { name: 'page', value: 1 }]);
   if (!issuesFirstPage.length) {
