@@ -4,7 +4,7 @@ const connectionParams = {
   autoIndex: false,
   reconnectTries: 1,
   reconnectInterval: 500,
-  poolSize: 2,
+  poolSize: 5,
   bufferMaxEntries: 0,
   bufferCommands: false,
   useNewUrlParser: true,

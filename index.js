@@ -19,6 +19,9 @@ app.use('/', routes);
 app.use(notFound);
 app.use(serverError);
 
+// eslint-disable-next-line no-unused-vars
+app.use((e, req, res, next) => res.status(e.status || 500).json({ message: e.message }));
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

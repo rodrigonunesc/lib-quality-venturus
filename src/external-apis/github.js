@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 const PAGE_LIMIT = 1;
+const PER_PAGE_AMOUNT = 100;
 
 const axiosIntance = axios.create({
   baseURL: process.env.GITHUB_BASE_URL || 'https://api.github.com',
@@ -15,8 +16,10 @@ function getProjectDataFromApi(projectName) {
   return axiosIntance.get(`search/repositories?q=${projectName}&order=desc&per_page=${PAGE_LIMIT}`);
 }
 
-function getProjectIssuesFromApi(fullProjectName, page = 1) {
-  return axiosIntance.get(`repos/${fullProjectName}/issues?per_page=100&state=open&page=${page}`);
+function getProjectIssuesFromApi(fullProjectName, params = []) {
+  const queryParams = params.reduce((string, currentParam) => (string
+    ? `${string}&${currentParam.name}=${currentParam.value}` : `${currentParam.name}=${currentParam.value}`), '');
+  return axiosIntance.get(`repos/${fullProjectName}/issues?${queryParams}`);
 }
 
 function getLastPageFromLink(link) {
@@ -38,14 +41,19 @@ module.exports.getProjectDataByName = async (projectName) => {
 };
 
 module.exports.getOpenedProjectIssues = async (fullProjectName) => {
-  const { data: issuesFirstPage, headers } = await getProjectIssuesFromApi(fullProjectName);
-  if (headers.link) {
-    const lastPage = getLastPageFromLink(headers.link);
-    const pages = getReaminingPagesToBeProcessed(lastPage);
-    const promises = pages.map((page) => getProjectIssuesFromApi(fullProjectName, page));
-    const allResponses = await Promise.all(promises);
-    const allIssues = issuesFirstPage.concat(...allResponses.map((response) => response.data));
-    const issuesWithoutPullRequest = getIssuesWithoutPullRequest(allIssues);
-    return issuesWithoutPullRequest;
+  const queryParams = [
+    { name: 'per_page', value: PER_PAGE_AMOUNT },
+    { name: 'state', value: 'open' },
+  ];
+  const { data: issuesFirstPage, headers } = await getProjectIssuesFromApi(fullProjectName, [...queryParams, { name: 'page', value: 1 }]);
+  if (!issuesFirstPage.length) {
+    return [];
   }
+  const lastPage = getLastPageFromLink(headers.link);
+  const pages = getReaminingPagesToBeProcessed(lastPage);
+  const promises = pages.map((page) => getProjectIssuesFromApi(fullProjectName, [...queryParams, { name: 'page', value: page }]));
+  const allResponses = await Promise.all(promises);
+  const allIssues = issuesFirstPage.concat(...allResponses.map((response) => response.data));
+  const issuesWithoutPullRequest = getIssuesWithoutPullRequest(allIssues);
+  return issuesWithoutPullRequest;
 };

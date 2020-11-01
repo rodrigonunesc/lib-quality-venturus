@@ -1,4 +1,3 @@
 const ONE_DAY_MILLI_SECONDS = 86400000;
 
-module.exports.getDateDifferenceInDays = (dateA, dateB) => (dateA - new Date(dateB).getTime())
-/ ONE_DAY_MILLI_SECONDS;
+module.exports.getDateDifferenceInDays = (dateA, dateB) => (dateA - dateB) / ONE_DAY_MILLI_SECONDS;

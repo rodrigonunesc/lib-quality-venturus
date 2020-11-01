@@ -10,10 +10,10 @@ module.exports.extractAverageAgeFromIssues = (issues) => {
 
 module.exports.extractStandardDeviationAgeFromIssues = (issues, averageTimeInDays) => {
   const now = Date.now();
-  const datesDiffInDays = issues.map((issue) => getDateDifferenceInDays(now,
-    new Date(issue.created_at).getTime()));
-  const variation = datesDiffInDays.map((diffInDays) => (diffInDays - averageTimeInDays) ** 2)
-    .reduce((accumulator, current) => accumulator + current, 0) / issues.length;
+  const variation = issues.reduce((accumulator, current) => {
+    const diffInDays = getDateDifferenceInDays(now, new Date(current.created_at).getTime());
+    return accumulator + (diffInDays - averageTimeInDays) ** 2;
+  }, 0) / issues.length;
   const deviation = Math.sqrt(variation);
   return Math.round(deviation);
 };

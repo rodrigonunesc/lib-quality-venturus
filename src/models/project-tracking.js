@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const VisitTrackingSchema = new mongoose.Schema({
   requestDate: { type: Date, default: Date.now },
-  returnedApiData: Object,
+  apiData: Object,
 });
 
 const ProjectTrackingSchema = new mongoose.Schema({
-  projectName: { type: String, required: true },
-  trackings: [VisitTrackingSchema],
+  projectId: { type: String, required: true, unique: true },
+  visits: [VisitTrackingSchema],
 });
 
-module.exports = mongoose.models.ProjectTracking || mongoose.models('ProjectTracking', ProjectTrackingSchema);
+module.exports = mongoose.models.ProjectTracking || mongoose.model('ProjectTracking', ProjectTrackingSchema);
