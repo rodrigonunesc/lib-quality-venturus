@@ -25,7 +25,7 @@ module.exports.saveProjectTracking = ({
   { projectId: projectData.full_name },
   {
     $push: {
-      visits: { requestDate, apiData: projectData },
+      trackings: { requestDate, apiData: projectData },
     },
   },
   { upsert: true },

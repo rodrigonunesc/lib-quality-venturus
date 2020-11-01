@@ -7,7 +7,7 @@ const VisitTrackingSchema = new mongoose.Schema({
 
 const ProjectTrackingSchema = new mongoose.Schema({
   projectId: { type: String, required: true, unique: true },
-  visits: [VisitTrackingSchema],
+  trackings: [VisitTrackingSchema],
 });
 
 module.exports = mongoose.models.ProjectTracking || mongoose.model('ProjectTracking', ProjectTrackingSchema);
