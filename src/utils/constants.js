@@ -1,8 +1,14 @@
-const HTTP_STATUS = {
+const HTTP_STATUS = Object.freeze({
   SUCESS: 200,
   NOT_FOUND: 400,
-};
+});
+
+const ONE_DAY_MILLI_SECONDS = 86400000;
+
+const CACHE_TIME_IN_SECONDS = 86400;
 
 module.exports = {
   HTTP_STATUS,
+  ONE_DAY_MILLI_SECONDS,
+  CACHE_TIME_IN_SECONDS,
 };

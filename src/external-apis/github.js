@@ -34,6 +34,11 @@ function getIssuesWithoutPullRequest(issues) {
   return issues.filter((issue) => !issue.pull_request);
 }
 
+module.exports.getProjectDataByFullName = async (fullProjectName) => {
+  const { data } = await axiosIntance.get(`repos/${fullProjectName}`);
+  return data;
+};
+
 module.exports.getProjectDataByName = async (projectName) => {
   const { data } = await getProjectDataFromApi(projectName);
   const projectData = data.items[0];
