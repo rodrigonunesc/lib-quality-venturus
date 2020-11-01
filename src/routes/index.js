@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const metricRoutes = require('./git-metric');
+const metricRoutes = require('./metric');
 
 router.get('/online', (req, res) => res.json({ message: 'Online!' }));
 

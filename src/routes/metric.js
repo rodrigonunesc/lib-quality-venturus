@@ -1,4 +1,4 @@
-const metricController = require('../controllers/git-metric-controller');
+const metricController = require('../controllers/metric-controller');
 
 module.exports = (express) => {
   const router = express.Router();
