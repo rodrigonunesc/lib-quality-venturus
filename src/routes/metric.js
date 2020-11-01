@@ -4,6 +4,6 @@ module.exports = (express) => {
   const router = express.Router();
 
   router.get('/project', metricController.getProjectMetrics);
-  router.get('/projects', metricController.getProjectMetricsAlongTime);
+  router.get('/life-time-issues/projects', metricController.getProjectMetricsAlongTime);
   return router;
 };

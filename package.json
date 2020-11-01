@@ -2,10 +2,10 @@
   "name": "lib-quality-venturus",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --inspect=0.0.0.0 --verbose index.js"
+    "test": "jest \"tests/.*\\.*\\.js\"",
+    "start": "nodemon --inspect=0.0.0.0 --verbose src/index.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.3",
+    "@types/jest": "^26.0.15",
     "eslint": "^7.12.1",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.1",
@@ -35,6 +36,7 @@
     "husky": "^4.3.0",
     "jest": "^26.6.1",
     "moxios": "^0.4.0",
+    "redis-mock": "^0.53.0",
     "supertest": "^6.0.0"
   }
 }

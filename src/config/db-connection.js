@@ -23,3 +23,5 @@ module.exports.create = () => new Promise((resolve, reject) => {
 
   mongoose.connect(process.env.DB_URL, connectionParams).then(() => resolve(mongoose.connection));
 });
+
+module.exports.end = () => mongoose.connection.close();
