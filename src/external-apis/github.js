@@ -8,7 +8,7 @@ const axiosIntance = axios.create({
   headers: {
     'User-Agent': 'lib-quality-venturus',
     Accept: 'application/vnd.github.v3+json',
-    Authorization: `token ${process.env.GIT_TOKEN}`,
+    Authorization: process.env.GIT_TOKEN ? `token ${process.env.GIT_TOKEN}` : null,
   },
 });
 
