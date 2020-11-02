@@ -108,7 +108,7 @@ module.exports.getProjectMetricsAlongTime = async (req, res, next) => {
 
       await Promise.all(promises);
 
-      const trackedProjectIssues = metricUtils.getProjectIssuesTrackedPerDay(projectsIssues);
+      const trackedProjectIssues = metricUtils.getProjectMetricIssuesTrackedPerDay(projectsIssues);
 
       response = trackedProjectIssues;
 

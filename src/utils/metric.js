@@ -9,9 +9,7 @@ function getArrayOfDatesBetweenStartAndEndDate(startDate, endDate) {
   return array;
 }
 
-getArrayOfDatesBetweenStartAndEndDate(new Date('2016-09-09T09:51:01Z'), new Date('2020-11-01T00:00:00Z'));
-
-module.exports.getProjectIssuesTrackedPerDay = (projectsIssues) => {
+module.exports.getProjectMetricIssuesTrackedPerDay = (projectsIssues) => {
   const now = new Date();
 
   const projectsIssuesTrackedPerDay = {};
