@@ -10,7 +10,7 @@
     "start": "nodemon --inspect=0.0.0.0 --verbose src/app.js",
     "precommit": "npm run lint && npm test",
     "prepush": "npm run lint && npm test",
-    "test": "jest --coverage --verbose",
+    "test": "jest --coverage --verbose --forceExit",
     "lint": "eslint ."
   },
   "repository": {
@@ -44,5 +44,11 @@
     "moxios": "^0.4.0",
     "redis-mock": "^0.53.0",
     "supertest": "^6.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test && npm run lint",
+      "pre-push": "npm test"
+    }
   }
 }

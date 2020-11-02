@@ -2,7 +2,7 @@ require('jest');
 require('dotenv').config();
 
 const request = require('supertest');
-const app = require('../../src/app');
+const { app } = require('../../src/app');
 const ProjectTrackingShema = require('../../src/models/project-tracking');
 const UserTrackingSchema = require('../../src/models/user-tracking');
 const connection = require('../../src/config/db-connection');
@@ -19,8 +19,9 @@ jest.mock('../../src/helpers/redis');
 
 describe('Metric Controller', () => {
   describe('#getProjectMetrics', () => {
-    beforeAll(async () => {
+    beforeAll(async (done) => {
       await connection.create();
+      done();
     });
 
     beforeEach(async (done) => {
