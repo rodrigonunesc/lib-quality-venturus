@@ -3,7 +3,7 @@ const ProjectTrackingModel = require('../models/project-tracking');
 
 module.exports.saveUserTracking = ({
   userId, projectData, query, requestDate, status,
-}) => UserTrackingModel.updateOne(
+}) => (userId ? UserTrackingModel.updateOne(
   { userId },
   {
     $push: {
@@ -17,7 +17,7 @@ module.exports.saveUserTracking = ({
     },
   },
   { upsert: true },
-);
+) : Promise.resolve());
 
 module.exports.saveProjectTracking = ({
   projectData, requestDate,

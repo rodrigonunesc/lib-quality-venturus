@@ -6,12 +6,17 @@ const githubApi = require('../external-apis/github');
 const { extractAverageAgeFromIssues, extractStandardDeviationAgeFromIssues } = require('../helpers/issues-metrics-extractor');
 const redisHelper = require('../helpers/redis');
 const NotFoundException = require('../exceptions/not-found');
+const InvalidFields = require('../exceptions/invalid-fields');
 
 module.exports.getProjectMetrics = async (req, res, next) => {
   try {
     const requestDate = new Date();
 
     const { projectName, userId } = req.query;
+
+    if (!projectName) {
+      throw new InvalidFields('Missing projectName param');
+    }
 
     const redisKey = `getProjectMetrics${projectName}`;
 
