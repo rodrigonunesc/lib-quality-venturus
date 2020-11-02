@@ -2,10 +2,15 @@
   "name": "lib-quality-venturus",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/app.js",
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
-    "test": "jest \"tests/.*\\.*\\.js\"",
-    "start": "nodemon --inspect=0.0.0.0 --verbose src/index.js"
+    "start": "nodemon --inspect=0.0.0.0 --verbose src/app.js",
+    "test": "jest --coverage --verbose",
+    "precommit": "npm run lint && npm test",
+    "prepush": "npm run lint && npm test"
   },
   "repository": {
     "type": "git",

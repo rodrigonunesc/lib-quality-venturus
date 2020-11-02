@@ -21,7 +21,8 @@ module.exports.create = () => new Promise((resolve, reject) => {
 
   mongoose.connection.on('error', (error) => reject(error));
 
-  mongoose.connect(process.env.DB_URL, connectionParams).then(() => resolve(mongoose.connection));
+  mongoose.connect(process.env.MONGO_URL,
+    connectionParams).then(() => resolve(mongoose.connection));
 });
 
 module.exports.end = () => mongoose.connection.close();

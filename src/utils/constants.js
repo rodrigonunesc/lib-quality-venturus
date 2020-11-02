@@ -1,5 +1,5 @@
 const HTTP_STATUS = Object.freeze({
-  SUCESS: 200,
+  SUCCESS: 200,
   NOT_FOUND: 400,
 });
 

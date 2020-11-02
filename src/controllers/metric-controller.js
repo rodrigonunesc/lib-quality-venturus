@@ -27,7 +27,7 @@ module.exports.getProjectMetrics = async (req, res, next) => {
         projectData: parsedCachedResponse.projectData,
         query: projectName,
         requestDate,
-        status: HTTP_STATUS.SUCESS,
+        status: HTTP_STATUS.SUCCESS,
       });
 
       response = parsedCachedResponse.cachedPayload;
@@ -45,7 +45,7 @@ module.exports.getProjectMetrics = async (req, res, next) => {
       await Promise.all([
         metricsRecorderHelper.saveProjectTracking({ projectData, requestDate }),
         metricsRecorderHelper.saveUserTracking({
-          userId, projectData, query: projectName, requestDate, status: HTTP_STATUS.SUCESS,
+          userId, projectData, query: projectName, requestDate, status: HTTP_STATUS.SUCCESS,
         }),
       ]);
 
