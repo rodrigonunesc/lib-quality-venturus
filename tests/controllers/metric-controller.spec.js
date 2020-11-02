@@ -10,7 +10,7 @@ const { getData } = require('../../src/helpers/redis');
 
 process.env.NODE_ENV = 'test';
 
-jest.setTimeout(20000);
+jest.setTimeout(30000);
 
 // eslint-disable-next-line global-require
 jest.mock('redis', () => require('redis-mock'));
