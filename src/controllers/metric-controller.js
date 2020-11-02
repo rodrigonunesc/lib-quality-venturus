@@ -82,6 +82,10 @@ module.exports.getProjectMetricsAlongTime = async (req, res, next) => {
   try {
     const { projectsFullNames } = req.query;
 
+    if (!projectsFullNames) {
+      throw new InvalidFields('Missing projectsFullNames param');
+    }
+
     const redisKey = `getProjectMetricsAlongTime${projectsFullNames}`;
 
     let response;
