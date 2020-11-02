@@ -8,9 +8,10 @@
   },
   "scripts": {
     "start": "nodemon --inspect=0.0.0.0 --verbose src/app.js",
-    "test": "jest --coverage --verbose",
     "precommit": "npm run lint && npm test",
-    "prepush": "npm run lint && npm test"
+    "prepush": "npm run lint && npm test",
+    "test": "jest --coverage --verbose",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
