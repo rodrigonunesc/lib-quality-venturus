@@ -30,6 +30,6 @@ You can test if the server is up using the route: http://localhost:3000/online
 ```npm test```
 
 ## Api routes details(Swagger)
-With the app running, acesse: http://localhost:3000/api-docs
+With the app running, access: http://localhost:3000/api-docs
 
 
