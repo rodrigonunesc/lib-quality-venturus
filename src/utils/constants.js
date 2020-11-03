@@ -1,6 +1,6 @@
 const HTTP_STATUS = Object.freeze({
   SUCCESS: 200,
-  NOT_FOUND: 400,
+  NOT_FOUND: 404,
 });
 
 const ONE_DAY_MILLI_SECONDS = 86400000;
