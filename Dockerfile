@@ -15,8 +15,6 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-COPY ./data /
-
 RUN npm install -g nodemon
 RUN npm install
 
