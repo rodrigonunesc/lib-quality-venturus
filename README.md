@@ -22,6 +22,7 @@
 ```GIT_TOKEN=PutYourGitApiTokenHere```<br>
 
 ## Running the project
+```Create .env file and copy the environment variable from the previous section(Environment variable)```<br>
 ```npm install```<br>
 ```docker-compose up```<br>
 You can test if the server is up using the route: http://localhost:3000/online
